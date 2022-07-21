@@ -45,6 +45,10 @@ p {
     color: #eee;
 }
 
+ul {
+    color: black;
+}
+
 /* ---- Layout Rules ---- */
 main {
     margin: 10vh 1em 10vh;

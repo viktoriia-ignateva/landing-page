@@ -53,7 +53,26 @@
  * 
 */
 
-// Build menu 
+// Build menu
+window.addEventListener('load', () => {
+    let sections = document.getElementsByTagName('section')
+    let nuvNames = []
+
+    for (let i = 0; i < sections.length; i++) {
+        const attr = sections[i].attributes.getNamedItem("data-nav").value;
+        nuvNames.push(attr);
+    }
+
+    const navItem = document.createDocumentFragment();
+
+    for (let i = 0; i <= nuvNames.length-1; i++) {
+        const newElement = document.createElement('li');
+        newElement.innerText = nuvNames[i];
+        navItem.appendChild(newElement);
+    }
+
+    document.getElementById("navbar__list").appendChild(navItem);
+})
 
 // Scroll to section on link click
 
