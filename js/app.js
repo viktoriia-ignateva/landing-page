@@ -22,7 +22,7 @@
  * Define Global Variables
  * 
 */
-
+let sections
 
 /**
  * End Global Variables
@@ -55,7 +55,7 @@
 
 // Build menu
 window.addEventListener('load', () => {
-    let sections = document.getElementsByTagName('section')
+    sections = document.getElementsByTagName('section')
     let nuvNames = []
 
     for (let i = 0; i < sections.length; i++) {
@@ -72,10 +72,19 @@ window.addEventListener('load', () => {
     }
 
     document.getElementById("navbar__list").appendChild(navItem);
-})
+});
 
 // Scroll to section on link click
 
 // Set sections as active
+document.addEventListener("scroll", function() {
+    for (let i = 0; i < sections.length; i++) {
+        const rect = sections[i].getBoundingClientRect()
+
+        if (rect.top <= 150 && rect.bottom >= 150) {
+            console.log("active section" + i)
+        }
+    }
+});
 
 
