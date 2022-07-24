@@ -1,42 +1,79 @@
 /**
- * 
+ *
  * Manipulating the DOM exercise.
  * Exercise programmatically builds navigation,
  * scrolls to anchors from navigation,
  * and highlights section in viewport upon scrolling.
- * 
+ *
  * Dependencies: None
- * 
+ *
  * JS Version: ES2015/ES6
- * 
+ *
  * JS Standard: ESlint
- * 
-*/
+ *
+ */
 
 /**
  * Comments should be present at the beginning of each procedure and class.
  * Great to have comments before crucial code sections within the procedure.
-*/
+ */
 
 /**
  * Define Global Variables
- * 
-*/
-let sections
+ *
+ */
+let sections = []
 
 /**
  * End Global Variables
  * Start Helper Functions
- * 
-*/
+ *
+ */
+function getActiveSection() {
+  for (let i = 0; i < sections.length; i++) {
+    const rect = sections[i].getBoundingClientRect()
 
+    if (rect.top <= 150 && rect.bottom >= 150) {
+      return sections[i]
+    }
+  }
+  return null
+}
 
+function updateActiveSection() {
+  let activeSection = getActiveSection()
+  if (activeSection !== null) {
+    for (let section of sections) {
+      section.classList.remove('your-active-class')
+    }
+    activeSection.classList.add('your-active-class')
+  }
+}
+
+function createMenu() {
+  let navNames = []
+
+  for (let i = 0; i < sections.length; i++) {
+    const attr = sections[i].attributes.getNamedItem('data-nav').value
+    navNames.push(attr)
+  }
+
+  const navItem = document.createDocumentFragment()
+
+  for (let i = 0; i <= navNames.length - 1; i++) {
+    const newElement = document.createElement('li')
+    newElement.innerText = navNames[i]
+    navItem.appendChild(newElement)
+  }
+
+  document.getElementById('navbar__list').appendChild(navItem)
+}
 
 /**
  * End Helper Functions
  * Begin Main Functions
- * 
-*/
+ *
+ */
 
 // build the nav
 
@@ -50,41 +87,22 @@ let sections
 /**
  * End Main Functions
  * Begin Events
- * 
-*/
+ *
+ */
 
 // Build menu
 window.addEventListener('load', () => {
-    sections = document.getElementsByTagName('section')
-    let nuvNames = []
+  sections = document.getElementsByTagName('section')
 
-    for (let i = 0; i < sections.length; i++) {
-        const attr = sections[i].attributes.getNamedItem("data-nav").value;
-        nuvNames.push(attr);
-    }
+  createMenu()
 
-    const navItem = document.createDocumentFragment();
+  updateActiveSection()
 
-    for (let i = 0; i <= nuvNames.length-1; i++) {
-        const newElement = document.createElement('li');
-        newElement.innerText = nuvNames[i];
-        navItem.appendChild(newElement);
-    }
-
-    document.getElementById("navbar__list").appendChild(navItem);
-});
+  document.addEventListener('scroll', updateActiveSection)
+})
 
 // Scroll to section on link click
 
 // Set sections as active
-document.addEventListener("scroll", function() {
-    for (let i = 0; i < sections.length; i++) {
-        const rect = sections[i].getBoundingClientRect()
-
-        if (rect.top <= 150 && rect.bottom >= 150) {
-            console.log("active section" + i)
-        }
-    }
-});
 
 
