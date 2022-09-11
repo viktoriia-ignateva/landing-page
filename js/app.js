@@ -52,17 +52,27 @@ function updateActiveSection() {
 
 function createMenu() {
   let navNames = []
+  let navId = []
 
   for (let i = 0; i < sections.length; i++) {
-    const attr = sections[i].attributes.getNamedItem('data-nav').value
-    navNames.push(attr)
+    const name = sections[i].attributes.getNamedItem('data-nav').value
+    navNames.push(name)
+    const id = sections[i].id
+    navId.push(id)
   }
 
   const navItem = document.createDocumentFragment()
 
   for (let i = 0; i <= navNames.length - 1; i++) {
     const newElement = document.createElement('li')
-    newElement.innerText = navNames[i]
+    const newLink = document.createElement('a')
+    newLink.innerText = navNames[i]
+    newLink.href = '#' + navId[i]
+    newLink.addEventListener('click', (event) => {
+      event.preventDefault()
+      document.getElementById(navId[i]).scrollIntoView({ behavior: 'smooth' })
+    })
+    newElement.appendChild(newLink)
     navItem.appendChild(newElement)
   }
 
