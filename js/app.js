@@ -66,6 +66,7 @@ function createMenu() {
   for (let i = 0; i <= navNames.length - 1; i++) {
     const newElement = document.createElement('li')
     const newLink = document.createElement('a')
+    newLink.classList.add('menu__link')
     newLink.innerText = navNames[i]
     newLink.href = '#' + navId[i]
     newLink.addEventListener('click', (event) => {
