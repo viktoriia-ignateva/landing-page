@@ -13,13 +13,9 @@
  *
  */
 
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
- */
 
 /**
- * Define Global Variables
+ * Global Variables
  *
  */
 let sections = []
@@ -29,6 +25,7 @@ let sections = []
  * Start Helper Functions
  *
  */
+// The function to get the currently active section in the viewport
 function getActiveSection() {
   for (let i = 0; i < sections.length; i++) {
     const rect = sections[i].getBoundingClientRect()
@@ -40,6 +37,13 @@ function getActiveSection() {
   return null
 }
 
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ *
+ */
+
+// The function to update class of an active section
 function updateActiveSection() {
   let activeSection = getActiveSection()
   if (activeSection !== null) {
@@ -50,6 +54,7 @@ function updateActiveSection() {
   }
 }
 
+// The function to create a menu of sections
 function createMenu() {
   let navNames = []
   let navId = []
@@ -81,27 +86,11 @@ function createMenu() {
 }
 
 /**
- * End Helper Functions
- * Begin Main Functions
- *
- */
-
-// build the nav
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
  * End Main Functions
  * Begin Events
  *
  */
 
-// Build menu
 window.addEventListener('load', () => {
   sections = document.getElementsByTagName('section')
 
@@ -111,9 +100,5 @@ window.addEventListener('load', () => {
 
   document.addEventListener('scroll', updateActiveSection)
 })
-
-// Scroll to section on link click
-
-// Set sections as active
 
 
